@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/apache/arrow/go/v14/parquet/metadata"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geo"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geo"
 )
 
 const (

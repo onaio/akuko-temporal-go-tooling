@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geo"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geo"
 	"github.com/paulmach/orb"
 	orbjson "github.com/paulmach/orb/geojson"
 )

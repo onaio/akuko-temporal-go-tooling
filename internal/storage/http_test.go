@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/storage"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/storage"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

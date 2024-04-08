@@ -8,8 +8,8 @@ import (
 	"go.temporal.io/sdk/client"
 	"go.temporal.io/sdk/worker"
 
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/activities"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/workflows"
+	"github.com/onaio/akuko-temporal-go-tooling/activities"
+	"github.com/onaio/akuko-temporal-go-tooling/workflows"
 )
 
 type Response struct {

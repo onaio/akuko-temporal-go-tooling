@@ -17,8 +17,8 @@ import (
 	"github.com/apache/arrow/go/v14/parquet/file"
 	"github.com/apache/arrow/go/v14/parquet/pqarrow"
 	"github.com/apache/arrow/go/v14/parquet/schema"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/pqutil"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/test"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/pqutil"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -173,7 +173,7 @@ func makeOvertureData(t *testing.T) (string, []byte) {
 }
 
 func TestTransformOverture(t *testing.T) {
-	// minimal reproduction of https://github.com/onaio/akuko-geoparquet-temporal-tooling/issues/102
+	// minimal reproduction of https://github.com/onaio/akuko-temporal-go-tooling/issues/102
 	expected, parquetData := makeOvertureData(t)
 
 	input := bytes.NewReader(parquetData)

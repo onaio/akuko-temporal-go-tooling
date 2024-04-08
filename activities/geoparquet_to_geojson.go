@@ -8,8 +8,8 @@ import (
 	"os"
 
 	"github.com/apache/arrow/go/v14/parquet/file"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geojson"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geoparquet"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geojson"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geoparquet"
 )
 
 // ReadFileBytes reads a file from a filepath and returns its contents as a byte slice

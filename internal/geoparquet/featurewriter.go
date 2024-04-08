@@ -9,7 +9,7 @@ import (
 	"github.com/apache/arrow/go/v14/arrow/array"
 	"github.com/apache/arrow/go/v14/parquet"
 	"github.com/apache/arrow/go/v14/parquet/pqarrow"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geo"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geo"
 	"github.com/paulmach/orb"
 	"github.com/paulmach/orb/encoding/wkb"
 	"github.com/paulmach/orb/encoding/wkt"

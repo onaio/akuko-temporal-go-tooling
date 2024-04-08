@@ -24,8 +24,8 @@ import (
 	"github.com/apache/arrow/go/v14/arrow/array"
 	"github.com/apache/arrow/go/v14/parquet"
 	"github.com/apache/arrow/go/v14/parquet/file"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geo"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geoparquet"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geo"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geoparquet"
 	"github.com/paulmach/orb"
 	_ "github.com/santhosh-tekuri/jsonschema/v5/httploader"
 )

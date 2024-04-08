@@ -5,7 +5,7 @@ import (
 
 	"go.temporal.io/sdk/workflow"
 
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/activities"
+	"github.com/onaio/akuko-temporal-go-tooling/activities"
 )
 
 func ConvertGeoparquetToGeojson(ctx workflow.Context, params *activities.ConvertGeoParquetToGeoJSONActivityParams) (activities.ConvertGeoParquetToGeoJSONActivityReturnType, error) {

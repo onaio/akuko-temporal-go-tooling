@@ -14,8 +14,8 @@ import (
 	"github.com/apache/arrow/go/v14/parquet/file"
 	"github.com/apache/arrow/go/v14/parquet/pqarrow"
 	"github.com/apache/arrow/go/v14/parquet/schema"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geo"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/pqutil"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geo"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/pqutil"
 	"github.com/paulmach/orb/encoding/wkb"
 	"github.com/paulmach/orb/encoding/wkt"
 )

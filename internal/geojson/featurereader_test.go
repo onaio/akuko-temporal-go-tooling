@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geo"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geojson"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geo"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geojson"
 	"github.com/paulmach/orb"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
