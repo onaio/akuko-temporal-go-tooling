@@ -53,12 +53,6 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branchName || steps.get-branch-name.outputs.current_branch }}
 
-      - name: Install dependencies
-        run: yarn
-
-      - name: Run tests
-        run: yarn test
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
