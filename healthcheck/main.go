@@ -14,7 +14,7 @@ func main() {
 	}
 	temporalClient, err := client.Dial(clientOptions)
 	if err != nil {
-		fmt.Println("Unable to create a Temporal Client: %s", err)
+		panic(err)
 	}
 	fmt.Println("Health check passed.")
 	defer temporalClient.Close()
