@@ -10,4 +10,4 @@ ENTRYPOINT ["./bin/akuko-temporal-go-tooling"]
 
 FROM base as dev
 RUN go mod tidy
-CMD ["gow", "run", "main.go"]
+CMD ["go", "run", "main.go"]
