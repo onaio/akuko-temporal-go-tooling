@@ -10,7 +10,7 @@ import (
 func main() {
 	clientOptions := client.Options{
 		HostPort:  os.Getenv("TEMPORAL_HOST"),
-		Namespace: os.Getenv("SOURCE_CREATION_AND_UPDATING_TEMPORAL_NAMESPACE"),
+		Namespace: os.Getenv("TEMPORAL_NAMESPACE"),
 	}
 	temporalClient, err := client.Dial(clientOptions)
 	if err != nil {
