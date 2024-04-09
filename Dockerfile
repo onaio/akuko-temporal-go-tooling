@@ -6,8 +6,14 @@ COPY . .
 
 FROM base as production
 RUN go build -o ./bin/akuko-temporal-go-tooling
+WORKDIR /app/healthcheck
+RUN go build -o ../bin/healthcheck
+WORKDIR /app
 ENTRYPOINT ["./bin/akuko-temporal-go-tooling"]
 
 FROM base as dev
-RUN go mod tidy
-CMD ["go", "run", "main.go"]
+RUN go build -o ./bin/akuko-temporal-go-tooling
+WORKDIR /app/healthcheck
+RUN go build -o ../bin/healthcheck
+WORKDIR /app
+ENTRYPOINT ["./bin/akuko-temporal-go-tooling"]
