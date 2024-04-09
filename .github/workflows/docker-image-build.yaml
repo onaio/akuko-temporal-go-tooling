@@ -20,11 +20,11 @@ on:
       tagDockerTargetName:
         description: "Docker Target"
         required: true
-        default: 'production'
+        default: 'default'
       branchDockerTargetName:
         description: "Docker Target"
         required: true
-        default: 'dev'
+        default: 'default'
 jobs:
   main:
     runs-on: ubuntu-20.04
