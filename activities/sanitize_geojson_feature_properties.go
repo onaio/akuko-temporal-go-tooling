@@ -24,18 +24,13 @@ func sanitizeStringToCubeSyntax(str string) string {
 }
 
 // sanitizeProperties sanitizes the keys in the properties map to conform to Cube syntax rules.
-// It also adds a feature_id key for each property with value index + 1.
-func sanitizeProperties(properties map[string]interface{}) map[string]interface{} {
+func sanitizeProperties(properties map[string]interface{}, feature_id int) map[string]interface{} {
 	sanitizedProperties := make(map[string]interface{})
 
-	index := 0
 	for key, value := range properties {
 		sanitizedKey := sanitizeStringToCubeSyntax(key)
 		sanitizedProperties[sanitizedKey] = value
-		index++
-
-		// Add feature_id key for each property
-		sanitizedProperties["feature_id"] = index
+		sanitizedProperties["feature_id"] = feature_id
 	}
 
 	return sanitizedProperties
@@ -61,8 +56,10 @@ func SanitizeGeoJSONFile(inputFile string, outputFile string) error {
 		return fmt.Errorf("no features found in GeoJSON data")
 	}
 
+	feature_id := 0
 	// Sanitize feature properties
 	for _, feature := range features {
+		feature_id++
 		featureMap, ok := feature.(map[string]interface{})
 		if !ok {
 			return fmt.Errorf("invalid feature format")
@@ -71,7 +68,9 @@ func SanitizeGeoJSONFile(inputFile string, outputFile string) error {
 		if !ok {
 			return fmt.Errorf("no properties found in feature")
 		}
-		featureMap["properties"] = sanitizeProperties(properties)
+		// sanitizeProperties sanitizes the keys in the properties map to conform to Cube syntax rules.
+		// It also adds a feature_id key for each feature with value index + 1.
+		featureMap["properties"] = sanitizeProperties(properties, feature_id)
 	}
 
 	// Marshal sanitized GeoJSON data
