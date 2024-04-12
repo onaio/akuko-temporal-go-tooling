@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"regexp"
 	"strings"
+
+	"go.temporal.io/sdk/activity"
 )
 
 // sanitizeStringToCubeSyntax sanitizes a string to conform to Cube syntax rules.
@@ -96,6 +98,8 @@ type SanitizeGeoJSONFeaturePropertiesActivityReturnType struct {
 }
 
 func SanitizeGeoJSONFeaturePropertiesActivity(ctx context.Context, params *SanitizeGeoJSONFeaturePropertiesActivityParams) (*SanitizeGeoJSONFeaturePropertiesActivityReturnType, error) {
+	message := "Sanitizing geojson file"
+	activity.RecordHeartbeat(ctx, message)
 	inputFile := params.GeoJSONFilePath
 	outputFile := params.GeoJSONFilePath
 
@@ -105,6 +109,8 @@ func SanitizeGeoJSONFeaturePropertiesActivity(ctx context.Context, params *Sanit
 		return nil, err
 	}
 
+	message = "GeoJSON file sanitized successfully."
+	activity.RecordHeartbeat(ctx, message)
 	fmt.Println("GeoJSON file sanitized successfully.")
 	var data = SanitizeGeoJSONFeaturePropertiesActivityReturnType{
 		FilePath: outputFile,
