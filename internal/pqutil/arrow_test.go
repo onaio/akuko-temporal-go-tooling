@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/pqutil"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/test"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/pqutil"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/test"
 	"github.com/stretchr/testify/require"
 )
 

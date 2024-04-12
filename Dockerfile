@@ -1,9 +1,12 @@
-FROM golang:1.20 AS builder
+FROM golang:1.20 AS base
 
-WORKDIR /app
+WORKDIR /srv/app
 
 COPY . .
 
-RUN go build -o ./bin/akuko-geoparquet-temporal-tooling
-
-ENTRYPOINT ["./bin/akuko-geoparquet-temporal-tooling"]
+FROM base as default
+RUN go build -o ./bin/akuko-temporal-go-tooling
+WORKDIR /srv/app/healthcheck
+RUN go build -o ../bin/healthcheck
+WORKDIR /srv/app
+ENTRYPOINT ["./bin/akuko-temporal-go-tooling"]

@@ -7,7 +7,7 @@ import (
 	"sort"
 
 	"github.com/apache/arrow/go/v14/arrow"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geo"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geo"
 )
 
 type ArrowSchemaBuilder struct {

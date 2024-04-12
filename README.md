@@ -1,6 +1,6 @@
-# akuko-geoparquet-temporal-tooling
+# akuko-temporal-go-tooling
 
-This Go module provides tools for executing various temporal activities related to GeoParquet files. It includes functionality for converting a GeoParquet file to GeoJSON and sanitizing GeoJSON feature property names.
+This Go module provides various Akuko temporal activities written using the golang language. At the moment the activities include functionality for converting a GeoParquet file to GeoJSON and sanitizing GeoJSON feature property names.
 
 ## Features
 
@@ -19,13 +19,13 @@ To build the binary, run the following command:
 Build
 
 ```bash
-go build -o ./bin/akuko-geoparquet-temporal-tooling
+go build -o ./bin/akuko-temporal-go-tooling
 ```
 
 Run
 
 ```bash
-./bin/akuko-geoparquet-temporal-tooling
+./bin/akuko-temporal-go-tooling
 ```
 or run the go program directly:
 

@@ -1,4 +1,4 @@
-module github.com/onaio/akuko-geoparquet-temporal-tooling
+module github.com/onaio/akuko-temporal-go-tooling
 
 go 1.20
 

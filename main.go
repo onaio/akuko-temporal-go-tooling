@@ -8,8 +8,8 @@ import (
 	"go.temporal.io/sdk/client"
 	"go.temporal.io/sdk/worker"
 
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/activities"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/workflows"
+	"github.com/onaio/akuko-temporal-go-tooling/activities"
+	"github.com/onaio/akuko-temporal-go-tooling/workflows"
 )
 
 type Response struct {
@@ -23,7 +23,7 @@ func main() {
 	}
 	temporalClient, err := client.Dial(clientOptions)
 	if err != nil {
-		fmt.Println("Unable to create a Temporal Client: %s", err)
+		fmt.Println("Unable to create a Temporal Client: ", err)
 	}
 	if temporalClient != nil {
 		defer temporalClient.Close()

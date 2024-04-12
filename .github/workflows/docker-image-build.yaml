@@ -1,0 +1,101 @@
+name: AWS ECR docker image build
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types:
+      - 'released'
+  workflow_dispatch:
+    inputs:
+      versionTag:
+        description: "Version Tag"
+        required: true
+        default: ''
+      branchName:
+        description: "Branch Name"
+        required: true
+        default: ''
+      tagDockerTargetName:
+        description: "Docker Target"
+        required: true
+        default: 'default'
+      branchDockerTargetName:
+        description: "Docker Target"
+        required: true
+        default: 'default'
+jobs:
+  main:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get the tag version
+        id: get-tag-version
+        if: ${{ github.event.inputs.versionTag == '' && github.event_name == 'release' }}
+        run: echo ::set-output name=TAG_VERSION::${GITHUB_REF/refs\/tags\//}
+
+      - name: Get Branch name
+        id: get-branch-name
+        uses: tj-actions/branch-names@v5.2
+        if: |
+          ${{ github.event.inputs.branchName == '' && github.event_name == 'pull_request' }} || ${{ github.event.inputs.branchName == '' && github.event_name == 'push' }}
+
+      - name: Checkout to tag version
+        uses: actions/checkout@v2
+        if: ${{ github.event.inputs.versionTag == '' && github.event_name == 'release' }}
+        with:
+          ref: ${{ github.event.inputs.versionTag || steps.get-tag-version.outputs.TAG_VERSION }}
+
+      - name: Checkout to branch
+        uses: actions/checkout@v2
+        if: |
+          ${{ github.event.inputs.branchName == '' && github.event_name == 'pull_request' }} || ${{ github.event.inputs.branchName == '' && github.event_name == 'push' }}
+        with:
+          ref: ${{ github.event.inputs.branchName || steps.get-branch-name.outputs.current_branch }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push a tag
+        id: docker-build-tag
+        uses: docker/build-push-action@v2
+        if: ${{ github.event.inputs.versionTag == '' && github.event_name == 'release' }}
+        with:
+          context: .
+          target: ${{ github.event.inputs.tagDockerTargetName }}
+          file: Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/onaio/akuko-temporal-go-tooling:${{ github.event.inputs.versionTag || steps.get-tag-version.outputs.TAG_VERSION }}
+
+      - name: Build and push a branch
+        id: docker-build-branch
+        uses: docker/build-push-action@v2
+        if: |
+          ${{ github.event.inputs.branchName == '' && github.event_name == 'pull_request' }} || ${{ github.event.inputs.branchName == '' && github.event_name == 'push' }}
+        with:
+          context: .
+          target: ${{ github.event.inputs.branchDockerTargetName }}
+          file: Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/onaio/akuko-temporal-go-tooling:${{ github.event.inputs.branchName || steps.get-branch-name.outputs.current_branch }}
+
+      - name: Image digest tag
+        if: ${{ github.event.inputs.versionTag == '' && github.event_name == 'release' }}
+        run: echo ${{ steps.docker-build-tag.outputs.digest }}
+
+      - name: Image digest branch
+        if: |
+          ${{ github.event.inputs.branchName == '' && github.event_name == 'pull_request' }} || ${{ github.event.inputs.branchName == '' && github.event_name == 'push' }}
+        run: echo ${{ steps.docker-build-branch.outputs.digest }}

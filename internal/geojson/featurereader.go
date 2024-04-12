@@ -5,10 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"regexp"
-	"strings"
 
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geo"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geo"
 	"github.com/paulmach/orb"
 	orbjson "github.com/paulmach/orb/geojson"
 )
@@ -105,8 +103,6 @@ func (r *FeatureReader) Read() (*geo.Feature, error) {
 				return nil, fmt.Errorf("trouble parsing properties: %w", err)
 			}
 			feature.Properties = properties
-			fmt.Println("feature.Properties: %s", feature.Properties)
-			fmt.Println("properties: %s", properties)
 			continue
 		}
 
@@ -253,10 +249,6 @@ func (r *FeatureReader) readFeature() (*geo.Feature, error) {
 	if err := r.decoder.Decode(feature); err != nil {
 		return nil, err
 	}
-	// Sanitize feature properties keys
-	fmt.Println("Unsanitized Properties: %s", feature.Properties)
-	feature.Properties = sanitizeProperties(feature.Properties)
-	fmt.Println("Sanitizes Properties: %s", feature.Properties)
 	return feature, nil
 }
 
@@ -278,35 +270,4 @@ func (r *FeatureReader) readGeometryCollection() (*geo.Feature, error) {
 
 	feature.Geometry = orb.Collection(geometries)
 	return feature, nil
-}
-
-// sanitizeProperties sanitizes the keys in the properties map to conform to Cube syntax rules.
-func sanitizeProperties(properties map[string]interface{}) map[string]interface{} {
-	sanitizedProperties := make(map[string]interface{})
-
-	index := 0
-	for key, value := range properties {
-		sanitizedKey := sanitizeStringToCubeSyntax(key)
-		sanitizedProperties[sanitizedKey] = value
-		index++
-
-		// Add feature_id key for each property
-		sanitizedProperties["feature_id"] = index
-	}
-
-	return sanitizedProperties
-}
-
-// sanitizeStringToCubeSyntax sanitizes a string to conform to Cube syntax rules.
-func sanitizeStringToCubeSyntax(str string) string {
-	// Cube doesn't allow numbers as the first character.
-	firstCharacter := str[:1]
-	if strings.Contains("0123456789", firstCharacter) {
-		str = "_" + str
-	}
-
-	// Replace non-alphanumeric characters with underscore and convert to lowercase.
-	reg := regexp.MustCompile("[^A-Za-z0-9]+")
-	sanitized := reg.ReplaceAllString(str, "_")
-	return strings.ToLower(sanitized)
 }

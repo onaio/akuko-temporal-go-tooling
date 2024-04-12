@@ -5,9 +5,9 @@ import (
 	"io"
 
 	"github.com/apache/arrow/go/v14/parquet"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geo"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/geoparquet"
-	"github.com/onaio/akuko-geoparquet-temporal-tooling/internal/pqutil"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geo"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/geoparquet"
+	"github.com/onaio/akuko-temporal-go-tooling/internal/pqutil"
 )
 
 const primaryColumn = "geometry"
