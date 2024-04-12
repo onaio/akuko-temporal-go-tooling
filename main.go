@@ -23,7 +23,7 @@ func main() {
 	}
 	temporalClient, err := client.Dial(clientOptions)
 	if err != nil {
-		fmt.Println("Unable to create a Temporal Client: %s", err)
+		fmt.Println("Unable to create a Temporal Client: ", err)
 	}
 	if temporalClient != nil {
 		defer temporalClient.Close()

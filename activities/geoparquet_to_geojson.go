@@ -70,13 +70,13 @@ func ConvertGeoParquetToGeoJSONActivity(ctx context.Context, params *ConvertGeoP
 	geoJSONBuffer := &bytes.Buffer{}
 	err = geojson.FromParquet(bytes.NewReader(fileBytes), geoJSONBuffer)
 	if err != nil {
-		fmt.Println("Error converting from Parquet to GeoJSON: %v", err)
+		fmt.Println("Error converting from Parquet to GeoJSON: ", err)
 		return nil, err
 	}
 
 	reader, readerErr := newFileReader(params.GeoParquetFilePath)
 	if readerErr != nil {
-		fmt.Println("Error converting from Parquet to GeoJSON: %v", readerErr)
+		fmt.Println("Error converting from Parquet to GeoJSON: ", readerErr)
 		return nil, readerErr
 	}
 	defer reader.Close()
@@ -86,18 +86,18 @@ func ConvertGeoParquetToGeoJSONActivity(ctx context.Context, params *ConvertGeoP
 	activity.RecordHeartbeat(ctx, message)
 	metadata, metadataErr := geoparquet.GetMetadata(reader.MetaData().GetKeyValueMetadata())
 	if metadataErr != nil {
-		fmt.Println("Error converting from Parquet to GeoJSON: %v", metadataErr)
+		fmt.Println("Error converting from Parquet to GeoJSON: ", metadataErr)
 		return nil, metadataErr
 	}
 
-	fmt.Println("MetaData: %s", &metadata)
+	fmt.Println("MetaData: ", &metadata)
 
 	message = "Writting geojson data to disk"
 	fmt.Println(message)
 	activity.RecordHeartbeat(ctx, message)
 	err = WriteFileBytes(params.GeoJSONFilePath, geoJSONBuffer.Bytes())
 	if err != nil {
-		fmt.Println("Error writing file to disk: %v", err)
+		fmt.Println("Error writing file to disk: ", err)
 		return nil, err
 	}
 	var data = ConvertGeoParquetToGeoJSONActivityReturnType{
