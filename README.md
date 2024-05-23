@@ -52,7 +52,20 @@ Before running the tool, make sure to set the following environment variables:
 
 ### Docker
 
-Alternatively, you can use Docker to run the module. The Dockerfile is provided in the repository.
+Building for arm64 based architectures:
+```
+docker buildx build -t <docker_tag_name> --platform linux/arm64 .
+```
+
+Building for amd64 based architectures:
+```
+docker buildx build -t <docker_tag_name> --platform linux/amd64 .
+```
+
+Building for both amd64 and arm64 based architectures:
+```
+docker buildx build -t <docker_tag_name> --platform linux/amd64, linux/arm64 .
+```
 
 ## Contributing
 
